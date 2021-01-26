@@ -1,0 +1,52 @@
+create database if not exists myshop;
+
+use myshop;
+
+
+create table admin(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(25),
+    password varchar(8),
+    level int
+);
+
+CREATE TABLE customers(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(25) character set utf8 not null ,
+    password varchar(8) default "12345678",
+    phone varchar(10) not null unique,
+    money int default 0
+);
+
+create Table items(
+	id INT AUTO_INCREMENT PRIMARY KEY,   
+	name varchar(25) character set utf8 not null unique ,
+	price DECIMAL(8,2) not null,	
+	qty int default 0,
+    create_date date default '2020-08-24',
+	info text character set utf8
+);
+
+CREATE TABLE orders(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_date DATE,
+    item_id int,
+    customer_id int,
+    amount int,
+  
+    foreign key(customer_id) references customers(id),
+	foreign key(item_id) references items(id)
+
+);
+
+
+
+insert into admin(name,password) values('jerry','jerry168');
+
+insert into items(name,price,qty,info) values('iphone 8手機殼',168,10,"只有紅色");
+
+insert into items(name,price,qty) values('iphone 7手機殼',128,5);
+
+insert into items(name,price,qty,info) values('iphone X手機殼',298,3,"廠商寄賣");
+
+insert into items(name,price,qty) values('iphone 11原廠手機殼',1280,1);
